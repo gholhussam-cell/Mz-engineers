@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة المهندسين الميدانية</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 15px auto;
+            padding: 0 10px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .engineer-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .info span {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .post-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .post-img {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 350px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .doc-box {
+            background-color: #f1f5f9;
+            border-right: 4px solid var(--secondary);
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .doc-box a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-add {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        🏗️ منصة التواصل الهندسي
+    </header>
+
+    <div class="container">
+        <!-- زر إضافة منشور -->
+        <button class="btn-add" onclick="toggleForm()">➕ إضافة تقرير / مشاركة جديدة</button>
+
+        <!-- نموذج إضافة منشور -->
+        <div id="postForm" class="card hidden">
+            <h3>إضافة منشور جديد</h3>
+            <input type="text" id="engName" placeholder="اسم المهندس">
+            <select id="engSpec">
+                <option value="هندسة مدنية">هندسة مدنية</option>
+                <option value="هندسة معمارية">هندسة معمارية</option>
+                <option value="هندسة كهرباء">هندسة كهرباء</option>
+                <option value="هندسة طرق وجسور">هندسة طرق وجسور</option>
+            </select>
+            <textarea id="postText" rows="3" placeholder="اكتب تفاصيل الموقع، حالة العمل، أو الملاحظات..."></textarea>
+            <input type="text" id="imgUrl" placeholder="رابط الصورة (إن وجد)">
+            <input type="text" id="docUrl" placeholder="رابط التقرير/الوثيقة (PDF / BOQ)">
+            <button class="btn-add" onclick="addPost()">نشر الآن</button>
+        </div>
+
+        <!-- قائمة المشاركات -->
+        <div id="feed">
+            <!-- منشور تجريبي 1 -->
+            <div class="card">
+                <div class="engineer-profile">
+                    <div class="avatar">م</div>
+                    <div class="info">
+                        <h4>مهندس موقع</h4>
+                        <span>هندسة مدنية • بغداد</span>
+                    </div>
+                </div>
+                <div class="post-desc">
+                    تم الانتهاء من أعمال فحص وتسليح السقف الخرساني، وجاري التجهيز لعملية الصب الموقعي بعد مطابقة المواصفات الفنية.
+                </div>
+                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=500" class="post-img" alt="موقع عمل">
+                <div class="doc-box">
+                    <span>📄 تقرير فحص الخرسانة.pdf</span>
+                    <a href="#">تحميل</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const form = document.getElementById('postForm');
+            form.classList.toggle('hidden');
+        }
+
+        function addPost() {
+            const name = document.getElementById('engName').value || 'مهندس مشارك';
+            const spec = document.getElementById('engSpec').value;
+            const text = document.getElementById('postText').value;
+            const img = document.getElementById('imgUrl').value;
+            const doc = document.getElementById('docUrl').value;
+
+            if(!text) {
+                alert('يرجى كتابة تفاصيل المشاركة');
+                return;
+            }
+
+            const feed = document.getElementById('feed');
+            const newPost = document.createElement('div');
+            newPost.className = 'card';
+
+            let imgHtml = img ? `<img src="${img}" class="post-img">` : '';
+            let docHtml = doc ? `<div class="doc-box"><span>📄 وثيقة مرفقة</span><a href="${doc}" target="_blank">عرض/تحميل</a></div>` : '';
+
+            newPost.innerHTML = `
+                <div class="engineer-profile">
+                    <div class="avatar">${name.charAt(0)}</div>
+                    <div class="info">
+                        <h4>${name}</h4>
+                        <span>${spec}</span>
+                    </div>
+                </div>
+                <div class="post-desc">${text}</div>
+                ${imgHtml}
+                ${docHtml}
+            `;
+
+            feed.prepend(newPost);
+            toggleForm();
+
+            // تفريغ الحقول
+            document.getElementById('postText').value = '';
+            document.getElementById('imgUrl').value = '';
+            document.getElementById('docUrl').value = '';
+        }
+    </script>
+</body>
+</html>
